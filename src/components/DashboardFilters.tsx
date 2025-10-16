@@ -59,7 +59,7 @@ export function DashboardFilters() {
           ].map(({ key, label, icon: Icon }) => (
             <button
               key={key}
-              onClick={() => setQuickFilter(key as any)}
+              onClick={() => setQuickFilter(key as 'active' | 'critical' | 'at-risk' | 'completed')}
               className="flex items-center gap-1 px-3 py-1.5 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors"
             >
               <Icon className="w-3 h-3" />

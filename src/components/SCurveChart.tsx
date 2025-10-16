@@ -37,11 +37,18 @@ export function SCurveChart() {
       acc[date].projectCount += 1;
       
       return acc;
-    }, {} as Record<string, any>);
+    }, {} as Record<string, {
+      date: string;
+      plannedProgress: number;
+      actualProgress: number;
+      plannedCost: number;
+      actualCost: number;
+      projectCount: number;
+    }>);
 
     // Convert to array and calculate averages
     const result = Object.values(dataByDate)
-      .map((item: any) => ({
+      .map((item) => ({
         date: item.date,
         formattedDate: formatDate(item.date),
         plannedProgress: item.projectCount > 0 ? item.plannedProgress / item.projectCount : 0,
@@ -57,12 +64,25 @@ export function SCurveChart() {
     return result;
   }, [filteredProjects]);
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  interface SCurveTooltipPayload {
+    name: string;
+    value: number;
+    dataKey: string;
+    color: string;
+  }
+
+  interface SCurveTooltipProps {
+    active?: boolean;
+    payload?: SCurveTooltipPayload[];
+    label?: string;
+  }
+
+  const CustomTooltip = ({ active, payload, label }: SCurveTooltipProps) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg">
           <p className="font-medium text-gray-900 mb-2">{label}</p>
-          {payload.map((entry: any, index: number) => (
+          {payload.map((entry, index) => (
             <p key={index} className="text-sm" style={{ color: entry.color }}>
               <span className="font-medium">{entry.name}:</span>{' '}
               {entry.dataKey.includes('Cost') 

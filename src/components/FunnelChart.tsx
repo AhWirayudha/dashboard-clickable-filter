@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useFilter } from '@/contexts/FilterContext';
-import { projects } from '@/data/sampleData';
 import { cn, formatCurrency } from '@/lib/utils';
 import { TrendingDown, Users, DollarSign, Calendar, AlertCircle } from 'lucide-react';
 

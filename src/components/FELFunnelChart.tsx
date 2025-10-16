@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useFilter } from '@/contexts/FilterContext';
-import { projects } from '@/data/sampleData';
 import { cn, formatCurrency } from '@/lib/utils';
 import { 
   PieChart, 
@@ -10,19 +9,12 @@ import {
   Cell, 
   ResponsiveContainer, 
   Tooltip, 
-  Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid
+  Legend
 } from 'recharts';
 import { 
-  TrendingDown, 
   Users, 
   DollarSign, 
   Calendar, 
-  AlertCircle,
   Settings,
   Play,
   CheckCircle,
@@ -84,11 +76,18 @@ function getPriorityColorClass(priority: string): string {
 
 interface CustomTooltipProps {
   active?: boolean;
-  payload?: any[];
+  payload?: Array<{
+    payload: {
+      name: string;
+      value: number;
+      budget: number;
+      percentage: number;
+    };
+  }>;
   label?: string;
 }
 
-const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
+const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
@@ -105,7 +104,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
 
 export function FELFunnelChart() {
   const { filteredProjects, state, dispatch } = useFilter();
-  const [activeChart, setActiveChart] = useState<'businessUnit' | 'company'>('businessUnit');
+  // Removed unused activeChart state
 
   const funnelData = FEL_STAGES.map(stage => {
     const stageProjects = filteredProjects.filter(p => p.felStage === stage.key);
@@ -166,7 +165,7 @@ export function FELFunnelChart() {
   const maxProjects = Math.max(...funnelData.map(stage => stage.projectCount));
   const totalProjects = filteredProjects.length;
 
-  const handlePieClick = (data: any, type: 'businessUnit' | 'company') => {
+  const handlePieClick = (data: { name: string }, type: 'businessUnit' | 'company') => {
     if (type === 'businessUnit') {
       dispatch({ type: 'TOGGLE_BUSINESS_UNIT', payload: data.name });
     } else if (type === 'company') {

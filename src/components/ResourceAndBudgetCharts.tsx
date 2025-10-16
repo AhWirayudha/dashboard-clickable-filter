@@ -22,12 +22,25 @@ function getValueSuffix(dataKey: string | undefined, value: number): string {
   return value.toString();
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipPayload {
+  dataKey: string;
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayload[];
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg">
         <p className="font-medium text-gray-900 mb-2">{label}</p>
-        {payload.map((entry: any) => (
+        {payload.map((entry) => (
           <p key={entry.dataKey} className="text-sm" style={{ color: entry.color }}>
             <span className="font-medium">{entry.name}:</span>{' '}
             {getValueSuffix(entry.dataKey, entry.value)}
@@ -39,7 +52,20 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const PieTooltip = ({ active, payload }: any) => {
+interface PieTooltipProps {
+  active?: boolean;
+  payload?: Array<{
+    payload: {
+      category: string;
+      budget: number;
+      spent: number;
+      projects: number;
+      percentage: number;
+    };
+  }>;
+}
+
+const PieTooltip = ({ active, payload }: PieTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0];
     return (

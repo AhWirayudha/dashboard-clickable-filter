@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { useFilter } from '@/contexts/FilterContext';
-import { projects } from '@/data/sampleData';
-import { cn, formatCurrency, getFELStageColor, getPriorityColor } from '@/lib/utils';
+import { cn, formatCurrency, getFELStageColor } from '@/lib/utils';
 import { ArrowRight, DollarSign, Users } from 'lucide-react';
 
 const FEL_STAGES = ['FEL 1', 'FEL 2', 'FEL 3', 'Execute', 'Operate'] as const;
