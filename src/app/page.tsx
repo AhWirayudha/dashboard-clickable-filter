@@ -7,6 +7,7 @@ import { SCurveChart } from '@/components/SCurveChart';
 import { GanttChart } from '@/components/GanttChart';
 import { FELPipeline } from '@/components/FELPipeline';
 import { FELFunnelChart } from '@/components/FELFunnelChart';
+import { InitiativeProjectPipeline } from '@/components/InitiativeProjectPipeline';
 import { ResourceAndBudgetCharts } from '@/components/ResourceAndBudgetCharts';
 import { ClientTimestamp } from '@/components/ClientTimestamp';
 import { BarChart3, Settings, Download, RefreshCw } from 'lucide-react';
@@ -59,6 +60,9 @@ export default function Dashboard() {
           <div className="space-y-6">
             {/* FEL Pipeline */}
             <FELPipeline />
+            
+            {/* Initiative Project Pipeline */}
+            <InitiativeProjectPipeline />
             
             {/* FEL Funnel Pipeline Chart with Interactive Filters */}
             <FELFunnelChart />
